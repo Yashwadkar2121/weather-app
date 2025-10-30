@@ -54,12 +54,13 @@ function CurrentWeather({ data, location, isFullScreen, onClose }) {
     return directions[Math.round(degrees / 22.5) % 16];
   };
 
-  // Compact view for dashboard
+  // 🌤 Compact (dashboard) view
   if (!isFullScreen) {
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white h-full flex flex-col"
       >
         <div className="text-center mb-4">
@@ -101,31 +102,34 @@ function CurrentWeather({ data, location, isFullScreen, onClose }) {
     );
   }
 
-  // Full screen view
+  // 🌈 Full screen view with gradient background
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="bg-gradient-to-br from-blue-400 to-purple-600 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-white w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl"
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-6">
         <div>
-          <h2 className="text-3xl font-bold">Current Weather Details</h2>
-          <p className="text-white/70 text-lg">
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Current Weather Details
+          </h2>
+          <p className="text-white/80 text-lg">
             {location.name}, {location.country}
           </p>
-          <p className="text-white/60">
+          <p className="text-white/70">
             {data.is_day ? "☀️ Daytime" : "🌙 Nighttime"} •{" "}
             {weatherCodes[data.weather_code]}
           </p>
         </div>
         <button
           onClick={onClose}
-          className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors flex-shrink-0"
+          className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors flex-shrink-0 border border-white/20"
         >
           <svg
-            className="w-6 h-6"
+            className="w-6 h-6 text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -142,76 +146,31 @@ function CurrentWeather({ data, location, isFullScreen, onClose }) {
 
       {/* Main Weather Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Temperature Section */}
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Temperature</p>
-          <p className="text-3xl font-bold">{data.temperature_2m}°C</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Feels Like</p>
-          <p className="text-2xl font-bold">{data.apparent_temperature}°C</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Humidity</p>
-          <p className="text-3xl font-bold">{data.relative_humidity_2m}%</p>
-        </div>
-
-        {/* Precipitation Section */}
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Rain</p>
-          <p className="text-2xl font-bold">{data.rain || 0} mm</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Showers</p>
-          <p className="text-2xl font-bold">{data.showers || 0} mm</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Snowfall</p>
-          <p className="text-2xl font-bold">{data.snowfall || 0} cm</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Precipitation</p>
-          <p className="text-2xl font-bold">{data.precipitation || 0} mm</p>
-        </div>
-
-        {/* Wind Section */}
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Wind Speed</p>
-          <p className="text-2xl font-bold">{data.wind_speed_10m} km/h</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Wind Direction</p>
-          <p className="text-2xl font-bold">
-            {getWindDirection(data.wind_direction_10m)}
-          </p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Wind Gusts</p>
-          <p className="text-2xl font-bold">{data.wind_gusts_10m} km/h</p>
-        </div>
-
-        {/* Pressure & Cloud Section */}
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Pressure</p>
-          <p className="text-2xl font-bold">{data.surface_pressure} hPa</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Cloud Cover</p>
-          <p className="text-2xl font-bold">{data.cloud_cover}%</p>
-        </div>
-
-        <div className="bg-white/10 rounded-xl p-4 text-center">
-          <p className="text-sm text-white/70 mb-1">Weather Code</p>
-          <p className="text-xl font-bold">{data.weather_code}</p>
-        </div>
+        {[
+          { label: "Temperature", value: `${data.temperature_2m}°C` },
+          { label: "Feels Like", value: `${data.apparent_temperature}°C` },
+          { label: "Humidity", value: `${data.relative_humidity_2m}%` },
+          { label: "Rain", value: `${data.rain || 0} mm` },
+          { label: "Showers", value: `${data.showers || 0} mm` },
+          { label: "Snowfall", value: `${data.snowfall || 0} cm` },
+          { label: "Precipitation", value: `${data.precipitation || 0} mm` },
+          { label: "Wind Speed", value: `${data.wind_speed_10m} km/h` },
+          {
+            label: "Wind Direction",
+            value: getWindDirection(data.wind_direction_10m),
+          },
+          { label: "Wind Gusts", value: `${data.wind_gusts_10m} km/h` },
+          { label: "Pressure", value: `${data.surface_pressure} hPa` },
+          { label: "Cloud Cover", value: `${data.cloud_cover}%` },
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-xl p-4 text-center transition-all duration-300"
+          >
+            <p className="text-sm text-white/80 mb-1">{item.label}</p>
+            <p className="text-2xl font-semibold text-white">{item.value}</p>
+          </div>
+        ))}
       </div>
     </motion.div>
   );

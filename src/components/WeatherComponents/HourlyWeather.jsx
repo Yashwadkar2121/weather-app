@@ -27,7 +27,6 @@ function HourlyWeather({ data, location, isFullScreen, onClose }) {
     99: "Storm",
   };
 
-  // Process next 6 hours for compact view, 24 for full screen
   const hoursToShow = isFullScreen ? 24 : 6;
   const hourlyData = data.time.slice(0, hoursToShow).map((time, index) => ({
     time: new Date(time),
@@ -39,7 +38,6 @@ function HourlyWeather({ data, location, isFullScreen, onClose }) {
     humidity: data.relative_humidity_2m[index],
     rain: data.rain?.[index] || 0,
     weatherCode: data.weather_code[index],
-    // Full screen data
     apparentTemp: data.apparent_temperature?.[index],
     dewPoint: data.dew_point_2m?.[index],
     precipitation: data.precipitation?.[index],
@@ -56,7 +54,6 @@ function HourlyWeather({ data, location, isFullScreen, onClose }) {
     isDay: data.is_day?.[index],
   }));
 
-  // Compact view for dashboard
   if (!isFullScreen) {
     return (
       <motion.div
@@ -96,12 +93,12 @@ function HourlyWeather({ data, location, isFullScreen, onClose }) {
     );
   }
 
-  // Full screen view
+  // ✅ Full screen view with gradient background
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white w-full max-w-7xl max-h-[90vh] overflow-y-auto"
+      className="bg-gradient-to-br from-blue-400 to-purple-600 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-white w-full max-w-7xl max-h-[90vh] overflow-y-auto transition-all duration-700"
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-6">
