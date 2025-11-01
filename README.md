@@ -25,98 +25,98 @@ Provides real-time weather conditions, hourly updates, and a 7-day forecast for 
 - 💅 **Tailwind CSS** (utility-first styling)
 - 🎞 **Framer Motion** (animations & transitions)
 - 🌐 **Open-Meteo APIs** (weather & geocoding)
-- ☁️ _(Optional)_ **Vercel** or Netlify for deployment
+- ☁️ **Vercel** (deployment)
 
 ---
 
 ## 📁 Project Structure
-
+   ```bash
 weather-app/
 ├── public/
-│ └── index.html
+| └── vite.svg
 ├── src/
+| ├──assets/
+│ |└── react.svg
 │ ├── components/
 │ │ ├── WeatherComponents/
 │ │ │ ├── CurrentWeather.jsx
 │ │ │ ├── HourlyWeather.jsx
 │ │ │ └── DailyWeather.jsx
 │ │ └── WeatherDashboard.jsx
+│ ├── App.css
 │ ├── App.jsx
+│ ├── index.css
 │ └── main.jsx
+├── index.html
 ├── package.json
 ├── vite.config.js
 └── README.md
+```
 
 ## 🧩 Installation & Setup
 
 1. **Clone this repository**
-   ```bash
+   ``` bash
    git clone https://github.com/Yashwadkar2121/weather-app.git
    cd weather-app
-   Install dependencies
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn
    ```
 
-bash
-Copy code
-npm install
-
-# or
-
-yarn
-Start development server
-
-bash
-Copy code
-npm run dev
-
-# or
-
-yarn dev
+3. **Start development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+---
 🔧 Usage
-Enter a city name (e.g., London, New York, Tokyo) in the search bar.
+-  Enter a city name (e.g., London, New York, Tokyo) in the search bar.
 
-Click Get Weather to fetch data from the Open-Meteo API.
+- Click Get Weather to fetch data from the Open-Meteo API.
 
-View three forecast cards:
+- View three forecast cards:
 
-Current → real-time weather conditions
+- Current → real-time weather conditions
 
-Hourly → short-term hourly forecast
+- Hourly → short-term hourly forecast
 
-Daily → week-long outlook
+- Daily → week-long outlook
 
-Click any card to expand into full-screen detailed view.
+- Click any card to expand into full-screen detailed view.
 
-Press ✕ to close the detailed view and return to the dashboard.
+- Press ✕ to close the detailed view and return to the dashboard.
 
-Background gradients automatically change every minute with smooth transitions 🌈.
+---
 
 📊 API & Data Sources
-Geocoding:
+- Geocoding:
 https://geocoding-api.open-meteo.com/v1/search
 
-Weather Forecast:
+- Weather Forecast:
 https://api.open-meteo.com/v1/forecast
 
-Data retrieved includes:
-temperature_2m, relative_humidity_2m, wind_speed_10m, weather_code, and more.
+- Data retrieved includes:
+**temperature_2m, relative_humidity_2m, wind_speed_10m, weather_code**, and more.
 Always handle edge cases (e.g., city not found, missing data, network errors).
 
+---
 🧑‍💻 Contributing
 Contributions are welcome! 🎉
 
-Fork this repository
+1. Fork this repository
 
-Create a feature branch
-
-bash
-Copy code
+2. Create a feature branch
+```bash
 git checkout -b feature/my-new-feature
-Make your changes and verify with:
-
-bash
-Copy code
+```
+3. Make your changes and verify with
+```bash
 npm run dev
-Submit a Pull Request with a clear description of your changes
-
+```
+4. Submit a Pull Request with a clear description of your changes
 Your PR will be reviewed and merged after approval 🚀
